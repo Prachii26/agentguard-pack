@@ -77,8 +77,8 @@
 | A53 | ingest/SOURCE_<n>.md | not applicable — no ingested sources this run |
 | A54 | audit/COVERAGE.md | present (this file) |
 | A55 | README.md | present, updated this pass |
-| A56 | index.html | pending — generated in the website step following this audit |
-| A57 | Live GitHub Pages URL | pending — recorded after publish |
+| A56 | index.html | present — built as a single-page site (`index.html` + `pack.html` reader + `site.css`, hand-built `visuals/docmanifest.json`); no Node.js available in this environment, so `templates/build_site.js`'s multi-page generator was not used |
+| A57 | Live GitHub Pages URL | **blocked, not generated** — no `gh` CLI installed and no push access on the only configured git remote (`upstream` → dlmastery/startup-skills, confirmed via `git push --dry-run`, 403). Needs a remote the user can push to (e.g. a personal fork) or `gh` CLI with authentication before this can complete. |
 | A58 | strategy/business_model_canvas.md | present, critic-passed |
 | A59 | strategy/petal_diagram.md | present, critic-passed |
 | A60 | strategy/channel_plan.md | present, critic-passed |
