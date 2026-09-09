@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>The Pack — AgentGuard</title>
+<meta name="description" content="Every AgentGuard artifact, read in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<style>
+  html,body{height:100%}
+  body{margin:0;display:flex;flex-direction:column;background:#fff;color:var(--ink,#0B0B12)}
+  .topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #E4E4EB;background:#fff;position:sticky;top:0;z-index:20}
+  .topbar a.home{font-weight:700;text-decoration:none;color:inherit;font-size:14px}
+  .topbar input{flex:1;max-width:320px;padding:6px 10px;border:1px solid #E4E4EB;border-radius:6px;font-family:inherit;font-size:13px}
+  .shell{flex:1;display:flex;min-height:0}
+  .sidebar{width:280px;flex:0 0 280px;border-right:1px solid #E4E4EB;overflow-y:auto;padding:10px 0;background:#F7F7F9}
+  .sidebar .grp{padding:10px 14px 4px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8A8A99;font-weight:600}
+  .sidebar a{display:block;padding:6px 14px;font-size:13px;color:#0B0B12;text-decoration:none;border-left:3px solid transparent}
+  .sidebar a:hover{background:#EEEDFB}
+  .sidebar a.active{border-left-color:#4338CA;background:#EEEDFB;font-weight:600}
+  .reader{flex:1;overflow-y:auto;padding:0}
+  .reader .doc{max-width:74ch;margin:0 auto;padding:36px 24px 100px}
+  .doc .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:#8A8A99;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .doc h1{font-size:32px;letter-spacing:-0.02em;margin:0 0 6px}
+  .doc .lede{font-size:20px;color:#5A5A6B;line-height:1.5;margin:0 0 28px}
+  .doc h2{font-size:22px;margin-top:36px;border-top:1px solid #EFEFF3;padding-top:20px;letter-spacing:-0.01em}
+  .doc h2 .num{font-family:'JetBrains Mono',monospace;font-size:13px;color:#4338CA;background:#EEEDFB;padding:2px 7px;border-radius:5px;margin-right:8px}
+  .doc h3{font-size:17px;margin-top:24px}
+  .doc p,.doc li{line-height:1.7;font-size:15.5px}
+  .doc code{font-family:'JetBrains Mono',monospace;background:#F1F1F4;padding:1px 5px;border-radius:4px;font-size:.9em}
+  .doc pre{background:#0B0B12;color:#EFEFF3;padding:14px 16px;border-radius:8px;overflow-x:auto}
+  .doc pre code{background:none;color:inherit;padding:0}
+  .doc table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px;display:block;overflow-x:auto}
+  .doc th,.doc td{border:1px solid #E4E4EB;padding:8px 10px;text-align:left;vertical-align:top}
+  .doc th{background:#F7F7F9;position:sticky;top:0}
+  .doc tr:nth-child(even) td{background:#FAFAFC}
+  .doc a{color:#4338CA}
+  .doc a.xref{text-decoration-style:dotted}
+  .doc a.asset::after{content:" ↗"}
+  .doc ul li,.doc ol li{margin:6px 0}
+  .doc ul.spaced li{border-top:1px solid #EFEFF3;padding-top:10px}
+  .callout{border-left:4px solid #4338CA;background:#F7F7F9;padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0}
+  .callout.warn{border-left-color:#B45309;background:#FBF3E9}
+  .callout b{font-family:'JetBrains Mono',monospace;text-transform:uppercase;font-size:11px;letter-spacing:.04em}
+  .rail{position:fixed;right:24px;top:70px;width:180px;font-size:12px;color:#5A5A6B;display:none}
+  .rail a{display:block;color:inherit;text-decoration:none;padding:3px 0;border-left:2px solid #E4E4EB;padding-left:8px}
+  .rail a:hover{color:#4338CA;border-left-color:#4338CA}
+  @media (min-width:1300px){.rail{display:block}}
+  .mermaid{background:#fff;padding:8px 0}
+  .imgcount{float:right;font-size:11px;color:#8A8A99}
+  .empty{padding:60px 24px;text-align:center;color:#8A8A99}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="home" href="index.html">← AgentGuard</a>
+  <input id="search" placeholder="Filter documents…" oninput="renderSidebar()">
+  <span style="font-size:12px;color:#8A8A99">The Pack</span>
+</div>
+<div class="shell">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="reader" id="reader"><div class="empty">Loading…</div></main>
+</div>
+<nav class="rail" id="rail"></nav>
+
+<script>
+let MANIFEST = [];
+let CURRENT = null;
+
+fetch('visuals/docmanifest.json').then(r => r.json()).then(m => {
+  MANIFEST = m;
+  renderSidebar();
+  const start = decodeURIComponent(location.hash.slice(1)) || 'README.md';
+  loadDoc(start);
+}).catch(e => {
+  document.getElementById('reader').innerHTML = '<div class="empty">Could not load the document index (visuals/docmanifest.json). ' + e + '</div>';
+});
+
+window.addEventListener('hashchange', () => {
+  const p = decodeURIComponent(location.hash.slice(1));
+  if (p && p !== CURRENT) loadDoc(p);
+});
+
+function renderSidebar(){
+  const q = (document.getElementById('search').value || '').toLowerCase();
+  const groups = {};
+  for (const d of MANIFEST) {
+    if (q && !d.t.toLowerCase().includes(q) && !d.p.toLowerCase().includes(q)) continue;
+    (groups[d.g] = groups[d.g] || []).push(d);
+  }
+  let html = '';
+  for (const g of Object.keys(groups)) {
+    html += '<div class="grp">' + g + '</div>';
+    for (const d of groups[g]) {
+      html += '<a href="#' + encodeURIComponent(d.p) + '" class="' + (d.p === CURRENT ? 'active' : '') + '" data-p="' + d.p + '">' + d.t + '</a>';
+    }
+  }
+  document.getElementById('sidebar').innerHTML = html || '<div class="empty">No matches</div>';
+}
+
+function resolvePath(basePath, rel){
+  if (/^(https?:|mailto:|#)/.test(rel)) return {abs: rel, external: true};
+  const baseDir = basePath.includes('/') ? basePath.slice(0, basePath.lastIndexOf('/') + 1) : '';
+  const parts = (baseDir + rel).split('/');
+  const out = [];
+  for (const part of parts) {
+    if (part === '.' || part === '') continue;
+    if (part === '..') out.pop(); else out.push(part);
+  }
+  return {abs: out.join('/'), external: false};
+}
+
+async function loadDoc(p){
+  CURRENT = p;
+  location.hash = encodeURIComponent(p);
+  renderSidebar();
+  const reader = document.getElementById('reader');
+  reader.innerHTML = '<div class="empty">Loading ' + p + '…</div>';
+  let text;
+  try {
+    const res = await fetch(p);
+    if (!res.ok) throw new Error(res.status);
+    text = await res.text();
+  } catch (e) {
+    reader.innerHTML = '<div class="empty">Could not load ' + p + ' (' + e + ')</div>';
+    return;
+  }
+
+  const lines = text.split('\n');
+  let h1 = p, lede = '';
+  const h1Idx = lines.findIndex(l => l.startsWith('# '));
+  if (h1Idx >= 0) { h1 = lines[h1Idx].replace(/^#\s*/, ''); lines.splice(h1Idx, 1); }
+  const afterH1 = lines.slice(h1Idx >= 0 ? h1Idx : 0).find(l => l.trim().length > 0 && !l.startsWith('**What this is**'));
+
+  const entry = MANIFEST.find(d => d.p === p);
+  const group = entry ? entry.g : '';
+
+  let bodyMd = lines.join('\n');
+  const renderer = new marked.Renderer();
+  const mermaidBlocks = [];
+  renderer.code = (code, lang) => {
+    if (lang === 'mermaid') { mermaidBlocks.push(code); return '<div class="mermaid">' + code + '</div>'; }
+    return '<pre><code>' + code.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])) + '</code></pre>';
+  };
+  renderer.link = (href, title, text) => {
+    const r = resolvePath(p, href);
+    if (r.external) return '<a href="' + r.abs + '" target="_blank" rel="noopener">' + text + '</a>';
+    if (/\.md$/i.test(r.abs)) return '<a class="xref" href="#' + encodeURIComponent(r.abs) + '">' + text + '</a>';
+    return '<a class="asset" href="' + r.abs + '" target="_blank" rel="noopener">' + text + '</a>';
+  };
+  renderer.image = (href, title, text) => {
+    const r = resolvePath(p, href);
+    return '<img src="' + r.abs + '" alt="' + (text||'') + '" loading="lazy">';
+  };
+
+  let sectionNum = 0;
+  renderer.heading = (text, level) => {
+    if (level === 2) { sectionNum++; return '<h2><span class="num">' + String(sectionNum).padStart(2,'0') + '</span>' + text + '</h2>'; }
+    return '<h' + level + '>' + text + '</h' + level + '>';
+  };
+
+  marked.setOptions({ renderer, gfm: true, breaks: false });
+  let html = marked.parse(bodyMd);
+
+  // Promote bold-label paragraphs to callouts
+  html = html.replace(/<p><strong>(Caveat|Correction|Warning|Risk|Scope|Limit|Honest)([^<:]*):<\/strong>/gi,
+    (m, label) => '<div class="callout' + (/caveat|warn|risk|correction/i.test(label) ? ' warn' : '') + '"><b>' + label + '</b>: ');
+  html = html.split('<div class="callout').length > 1
+    ? html.replace(/(<div class="callout[^>]*><b>[^<]*<\/b>:[\s\S]*?)<\/p>/g, '$1</div>')
+    : html;
+
+  reader.innerHTML =
+    '<div class="doc">' +
+      '<div class="eyebrow">' + group + ' · ' + p + '</div>' +
+      '<h1>' + h1 + '</h1>' +
+      (afterH1 ? '<p class="lede">' + afterH1.replace(/\*\*/g,'') + '</p>' : '') +
+      html +
+    '</div>';
+
+  // Section rail
+  const rail = document.getElementById('rail');
+  const h2s = [...reader.querySelectorAll('h2')];
+  rail.innerHTML = h2s.length ? '<b style="font-size:11px;text-transform:uppercase;color:#8A8A99">On this page</b>' +
+    h2s.map((h,i) => '<a href="javascript:void(0)" onclick="this.closest(\'body\').querySelectorAll(\'h2\')[' + i + '].scrollIntoView({behavior:\'smooth\'})">' + h.textContent + '</a>').join('') : '';
+
+  if (mermaidBlocks.length) {
+    try { mermaid.initialize({ startOnLoad: false, theme: 'neutral', themeVariables: { primaryColor: '#EEEDFB', primaryBorderColor: '#4338CA', lineColor: '#5A5A6B' } });
+      await mermaid.run({ querySelector: '.mermaid' }); } catch(e) { console.warn('mermaid render failed', e); }
+  }
+  window.scrollTo(0,0);
+  reader.scrollTop = 0;
+}
+</script>
+</body>
+</html>
