@@ -45,13 +45,13 @@ The direct ancestry of the adaptive-attack paradigm, none of it originally built
 
 ## 4. Classical/manual techniques — what security teams do without dedicated tooling
 
-- **Manual permission-boundary review** — defining tool-call scopes by hand, without a policy engine [S78, S79].
-- **Human-approval gates** before high-risk actions (production deploys, sending email, deleting records) [S78].
+- **Manual permission-boundary review** — defining tool-call scopes by hand, without a policy engine [S152].
+- **Human-approval gates** before high-risk actions (production deploys, sending email, deleting records) [S153].
 - **Ad hoc prompt engineering** — informal defensive prompting with no measurement of its own failure rate.
 - **Reliance on model-provider safety training alone** — treating the underlying model's alignment as sufficient, with no agent-specific testing layer.
 - **Manual audit-log review** — after-the-fact detection rather than pre-deployment evaluation.
 
-The data on how well this works: 48% of production agents run with no monitoring coverage at all; orgs enforcing least-privilege report a 17% incident rate vs. 76% for those that don't [S76, S77] — the single clearest quantified case that the status quo (manual, ad hoc) fails at a rate dedicated tooling of any kind measurably improves on. This is the strongest problem-side evidence in the whole research pass, independent of any competitor's claims.
+The data on how well this works: 48% of production agents run with no monitoring coverage at all; orgs enforcing least-privilege report a 17% incident rate vs. 76% for those that don't [S150] — the single clearest quantified case that the status quo (manual, ad hoc) fails at a rate dedicated tooling of any kind measurably improves on. This is the strongest problem-side evidence in the whole research pass, independent of any competitor's claims.
 
 ## 5. Emerging hybrids — where the field is visibly heading
 

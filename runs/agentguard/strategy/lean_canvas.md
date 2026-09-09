@@ -1,0 +1,29 @@
+# Lean Canvas
+
+**What this is**: Maurya's Lean Canvas — nine cells, ≤3 bullets each — a single-page compression of `BRIEF.md` and the strategy layer built so far.
+
+**Why it exists**: every other strategy artifact goes deep on one dimension; this is the one page that has to hold the whole business at once, so a reader (or the founder mid-conversation with an investor) can check that the pieces still fit together after five rounds of research-driven correction. The failure this document prevents: a positioning slide and a revenue-model slide that quietly contradict each other because no single artifact forces them onto the same page.
+
+**How to read it**: the ⚠ cell is the one the rest of the pack should least be trusted on — check it against `BRIEF.md`'s Riskiest assumption section before trusting any other cell that depends on it.
+
+**Depends on / feeds**: compresses `BRIEF.md`, `strategy/market_type.md`, `strategy/positioning.md`, `strategy/market_sizing.md`. Feeds `validation/riskiest_assumptions.md` (generated in phase 6) via the ⚠ marker below.
+
+---
+
+| Cell | Content |
+|---|---|
+| **Problem** | 1. Security/ML platform teams cannot tell whether a deployed defense (prompting, classifier, or rule-based) holds against an attacker that *adapts*, not just the fixed attack sets in AgentDojo/InjecAgent/ASB/BIPIA.<br>2. No vendor or benchmark publishes attack success *and* legitimate-task utility together, across multiple defenses, at matched attack budget (`research/competitors.md`).<br>3. Status quo fails measurably: 88% of orgs report a confirmed/suspected agent security incident in the past year; teams without least-privilege enforcement see a 76% incident rate vs. 17% with it (S150). |
+| **Customer segments** | 1. Beachhead: security/ML platform engineers at companies running tool-using agents in production (Marcus, `strategy/personas.md`).<br>2. Edge-high: enterprise AI red-team leads and CISOs needing board/audit-ready evidence (Elena, David).<br>3. Edge-low: solo agent developers wanting a free pre-launch signal (Priya) — funnel, not primary revenue. |
+| **Unique value proposition** ⚠ | *"The only adaptive evaluation platform that reports attack success and legitimate-task utility together, across every defense family, at matched attack budget"* (`strategy/positioning.md`). **⚠ Riskiest cell**: this UVP assumes the matched-budget adaptive-vs-static ASR gap is real and large enough to matter for AgentGuard's own three defense types specifically — unproven until `BRIEF.md`'s riskiest-assumption test runs (see `validation/riskiest_assumptions.md`, generated in phase 6, for the tracked test). |
+| **Solution** | 1. Feedback-only adaptive red-team agent (adopts AutoDojo's technique, S13) run against each of 4 defense configurations at matched budget.<br>2. Per-defense report: final-window ASR, attempts-to-first-success, campaign-average ASR, utility under attack, benign block rate, adaptation curve.<br>3. Self-serve API/CLI against a staging/sandboxed target agent — never production traffic (`BRIEF.md` year-one scope). |
+| **Channels** | 1. Open-source scanner / free tier as top-of-funnel (pattern: SplxAI's Agentic Radar, Giskard's OSS library — S62, S54).<br>2. Academic/research credibility — publishing the comparison methodology extends AgentDojo/AutoDojo's own literature rather than competing with it (`strategy/market_type.md`).<br>3. Security community events (DEF CON AI Village, HackAPrompt-adjacent) — natural fit for a capstone-origin team, no paid acquisition budget required. |
+| **Revenue streams** | 1. Self-serve usage-based: $750/single-defense campaign, $2,500/full 4-defense Comparison Report (`strategy/market_sizing.md` pricing assumption ⚠ — preliminary, to be revisited before `startup-financials`).<br>2. Volume/frequency-based scaling for edge-high (continuous evaluation), same unit price, higher cadence — no separate enterprise tier or contract motion (`BRIEF.md` Business model, `ASSUMPTIONS.md` A3). |
+| **Cost structure** | 1. LLM inference cost for the red-team agent's campaigns (verified cheap and falling — S101, S106).<br>2. Staging/sandboxed target-agent infrastructure to run evaluations against.<br>3. Zero sales-team cost in year one (self-serve-only motion, `ASSUMPTIONS.md` A3) — the largest deliberate cost omission relative to the enterprise-red-team competitors in `research/competitors.md`. |
+| **Key metrics** | 1. Campaigns run per month (usage, the direct revenue driver).<br>2. Matched-budget ASR gap distribution across customer defense configurations (the product's own core scientific output, and the thing that validates or kills the UVP). <br>3. Free-tier → paid conversion rate (validates the OSS/academic-credibility channel). |
+| **Unfair advantage** | None claimed — `BRIEF.md`'s Moat section states this explicitly as a gap, not an asset, and this canvas does not contradict it. The closest candidate (an accumulating corpus of cross-defense comparison results) is named as a hypothesis in `BRIEF.md`, not asserted here. |
+
+## Recommended next 3
+
+1. **Treat the ⚠ UVP cell as this pack's single highest-priority open validation item** — `validation/riskiest_assumptions.md` (phase 6) should list it first, not buried among others.
+2. **Do not add an "unfair advantage" cell claim in any later revision of this canvas until the corpus/data-network-effect hypothesis in `BRIEF.md`'s Moat section has actual campaign data behind it** — an empty cell is honest; a filled one prematurely would violate `references/quality-bar.md` property 2.
+3. **Cross-link this canvas explicitly to `strategy/business_model_canvas.md`** (Osterwalder's nine blocks) once written — the two canvases should agree on customer segments, channels, and revenue streams, not present quietly different pictures of the same business.
