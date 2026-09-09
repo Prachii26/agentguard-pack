@@ -4,7 +4,7 @@ An adaptive red-team/blue-team evaluation platform that runs the same budget-mat
 
 ## Status
 
-**PARTIAL — updated 2026-09-09.** **57/61 required artifacts present (93%)** per `audit/COVERAGE.md`, counted from the glob, not memory. Phases complete: **0 (Brief), 1 (Research), 2 (Strategy), 3 (Product), 4 (Tech), 5 (Narrative), 6 (Validation), 7 (Financials), 9 (Audit), 10 (Website — built, not published)**. **Phase 8 (Visuals) was explicitly skipped** — the 4 missing required rows are the entirety of the gap, not an oversight.
+**PARTIAL — updated 2026-09-09.** **61/61 required artifacts present (100%)** per `audit/COVERAGE.md`, counted from the glob, not memory. Phases complete: **0 (Brief), 1 (Research), 2 (Strategy), 3 (Product), 4 (Tech), 5 (Narrative), 6 (Validation), 7 (Financials), 8 (Visuals), 9 (Audit), 10 (Website — built, not published)**. Visuals landed as 4 self-contained HTML infographics on the highest-decision-relevance rows (matched-budget comparison, the 11%→81% evidence stat, the positioning quadrant, pricing tiers) — 6 further candidate rows are identified and deferred in `visuals/visual_manifest.md`, not silently dropped. No rendered PNGs (A52, optional) — no image tool available this session.
 
 **The site is built but not live.** `index.html` (landing page) and `pack.html` (a real document reader over all 62 artifacts — no raw `.md` is ever linked) exist and work locally. Publishing to GitHub Pages is **blocked**, not skipped: this environment has no `gh` CLI installed, and the only configured git remote (`upstream` → dlmastery/startup-skills) rejects push for the current git user (confirmed 403). Publishing needs either `gh` CLI with authentication, or a remote the user can actually push to — most likely a personal fork, which would need to be added as a new remote. See `audit/COVERAGE.md` row A57.
 
@@ -37,13 +37,21 @@ An adaptive red-team/blue-team evaluation platform that runs the same budget-mat
 | `narrative/` | One-pager, VC memo, 14-slide deck, future press release, founder story, mission/vision | 6 | startup-narrative |
 | `validation/` | Full Blank board — 9 artifacts, every experiment "planned," none fabricated | 9 | startup-validation |
 | `financials/` | Pricing (founder-signed-off, illustrative), revenue build, unit economics (margin reuses `tech/not_vaporware.md`'s cost derivation verbatim), use of funds (explicitly hypothetical, no active raise), risk matrix, comps & exits | 6 | startup-financials |
-| `audit/` | Citation audit (90 sources checked, 12 corrected) + manifest coverage (this pass) | 2 | startup-audit |
+| `audit/` | Citation audit (90 sources checked, 12 corrected) + manifest coverage | 2 | startup-audit |
+| `visuals/` | Manifest (10 candidates, 4 built), 4 HTML infographics, image prompts, docimages map | 4 files + 4 infographics | startup-visuals |
 
-Not yet generated: `visuals/` (skipped per instruction), `index.html` / site (this README's next update).
+Not yet generated: nothing required. `index.html` / `pack.html` are built but not published to a live URL (see Status above).
 
 ## Visual index
 
-None rendered — visuals phase explicitly skipped this run.
+| Visual | Headline takeaway | Cited by |
+|---|---|---|
+| [Matched-budget comparison](visuals/infographics/V01_matched_budget_comparison.html) | One attempt budget, four defenses, one report — can't be gamed by running one defense longer than another | `BRIEF.md`, `product/journeys/beachhead.md` |
+| [The adaptive-vs-static gap](visuals/infographics/V02_adaptive_gap.html) | 11%→81% hijack success, generic vs. adapted attacks, same environment — government-run, not vendor-sourced | `research/sources.md` S27 |
+| [Positioning quadrant](visuals/infographics/V03_positioning_quadrant.html) | No competitor publishes ASR and utility together, across defenses, at matched budget | `strategy/positioning.md` |
+| [Pricing tiers](visuals/infographics/V04_pricing_tiers.html) | Usage-based per campaign, no seats — founder-signed-off, illustrative, not final | `financials/pricing.md` |
+
+6 further candidates identified and deferred, not dropped silently — see `visuals/visual_manifest.md`.
 
 ## Top 5 sharpest claims
 
@@ -55,4 +63,4 @@ None rendered — visuals phase explicitly skipped this run.
 
 ## Completeness
 
-**PARTIAL.** 57/61 required artifacts present. Phases 0–2 are critic-loop hardened; phases 3–7 are complete but have not had an adversarial critic pass (see Status above for the one targeted check that did run). Visuals (phase 8) was explicitly skipped. See `audit/COVERAGE.md` for the row-by-row manifest table, the property-0 mechanical check, and the priority draw order for what remains.
+**PARTIAL.** 61/61 required artifacts present. Phases 0–2 are critic-loop hardened; phases 3–8 (Product, Tech, Narrative, Validation, Financials, Visuals) are complete but have **not** had an adversarial critic pass — this caveat still holds for Visuals too, generated under the same no-critic-loop instruction as the rest. See `audit/COVERAGE.md` for the row-by-row manifest table, the property-0 mechanical check, and the priority draw order for what remains (the website's live-publish step, and the deferred critic loop, are the two largest open items).

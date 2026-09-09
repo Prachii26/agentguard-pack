@@ -12,7 +12,9 @@
 
 ## Honest completion count
 
-**57 / 61 required artifacts present (93%).** All 4 gaps are in the visuals layer, skipped by explicit instruction this session ("skip startup-visuals entirely"), not missed by oversight. 1 optional row (A27, technique wave 3) was deliberately not generated because `tech/techniques/wave2.md` states the sourced technique material was genuinely exhausted at 37 total — documented, not padded. A53 (ingest sources) is not applicable — no external documents were ingested into this run.
+**61 / 61 required artifacts present (100%)**, updated after a later visuals-only pass closed A49–A52b (previously skipped by explicit instruction; a later instruction reversed that and generated them, still without a critic loop or any change to existing artifacts). 1 optional row (A27, technique wave 3) was deliberately not generated because `tech/techniques/wave2.md` states the sourced technique material was genuinely exhausted at 37 total — documented, not padded. A52 (rendered PNGs) remains optional and undone — no image tool available. A53 (ingest sources) is not applicable — no external documents were ingested into this run.
+
+**No critic loop has run on phases 3–8** (Product, Tech, Narrative, Validation, Financials, Visuals) — only Strategy (phase 2) completed the full three-persona adversarial loop. This caveat is unchanged by the visuals pass and should not be read as resolved.
 
 **No critic loop ran on phases 3–7** (Product, Tech, Narrative, Validation, Financials) — only Strategy (phase 2) went through the full three-persona adversarial loop. This is stated here and in `README.md`, not hidden.
 
@@ -69,11 +71,11 @@
 | A46 | financials/use_of_funds.md | present, no critic loop |
 | A47 | financials/risk_matrix.md | present, no critic loop |
 | A48 | financials/comps_exits.md | present, no critic loop |
-| A49 | visuals/visual_manifest.md | **missing — visuals skipped per instruction** |
-| A50 | visuals/infographics/*.html | **missing — visuals skipped per instruction** |
-| A51 | visuals/image_prompts.md | **missing — visuals skipped per instruction** |
-| A52 | visuals/images/*.png | not generated (optional; also part of skipped visuals phase) |
-| A52b | visuals/docimages.json | **missing — visuals skipped per instruction** |
+| A49 | visuals/visual_manifest.md | present, no critic loop — 10 candidate rows identified, 4 built, 6 deferred and named |
+| A50 | visuals/infographics/*.html | present, 4/4 built (V01–V04), no critic loop — self-contained, `site.css` only, no build step |
+| A51 | visuals/image_prompts.md | present, no critic loop — 2 of 4 rows carry real prompts (V02, V03); V01/V04 explicitly marked "do not convert to image" (exact numbers to transcribe) |
+| A52 | visuals/images/*.png | not generated — optional; no image-rendering tool available this session |
+| A52b | visuals/docimages.json | present, no critic loop — maps the 4 built visuals to 8 citing documents; `pack.html`'s reader does not yet consume this map to display images inline (named as open work in `visuals/visual_manifest.md`) |
 | A53 | ingest/SOURCE_<n>.md | not applicable — no ingested sources this run |
 | A54 | audit/COVERAGE.md | present (this file) |
 | A55 | README.md | present, updated this pass |
@@ -97,21 +99,23 @@ Grepped every `.md` file for the four labelled lines (`**What this is**`, `**Why
 
 ## Gap list, priority tiers
 
-**Tier 6 (proof & trust — the only tier with real gaps)**:
-1. A49/A50/A51/A52b — the entire visuals layer. Owning skill: `startup-visuals`. Effort: large (image prompts, HTML infographics for text-heavy rows, docimages.json mapping). Skipped this session per explicit instruction, not attempted.
-2. A24's ten architecture diagrams' orientation-block format. Owning skill: `startup-tech` (reformat only, no content change). Effort: trivial.
+No required-artifact gaps remain (61/61 present). Two real open items remain, neither a missing-artifact gap:
 
-No gaps exist in Tiers 1–5 (core mechanism, journeys, validation boards, market/positioning, feature/technique synthesis) — all required rows in those tiers are present.
+1. **The deferred three-persona critic loop on phases 3–8** (Product, Tech, Narrative, Validation, Financials, Visuals). Owning process: `skills/startup-critic`. Effort: large. This is the single largest quality-assurance gap in the current pack and is unaffected by the visuals pass landing.
+2. **A24's ten architecture diagrams' orientation-block format** — cosmetic, mechanical. Owning skill: `startup-tech` (reformat only, no content change). Effort: trivial.
+
+Additionally, `visuals/visual_manifest.md` itself names 6 further candidate visual rows as deferred (not gaps against the manifest, since A50 only requires HTML for rows that need it — but real backlog for a future visuals pass): V05–V06 already covered by existing Mermaid/ASCII, V07–V10 next-build candidates.
 
 ## Priority draw order (for a future session, not executed now)
 
-1. Reformat `tech/architecture/D01–D10.md`'s orientation blocks to four separate labelled lines (trivial, ~30 min total).
-2. Run the deferred three-persona critic loop on phases 3–7 (Product, Tech, Narrative, Validation, Financials) — the single largest quality-assurance gap in the current pack.
-3. Generate the visuals layer (A49–A52b) via `startup-visuals`, once the critic loop above has settled any content changes that would otherwise invalidate freshly-rendered visuals.
-4. Second audit pass on sources added or leaned on more heavily by phases 3–7 (`audit/CITATIONS.md` covers only sources cited through phase 2).
+1. Run the deferred three-persona critic loop on phases 3–8 — the single largest quality-assurance gap in the current pack, now covering Visuals too.
+2. Reformat `tech/architecture/D01–D10.md`'s orientation blocks to four separate labelled lines (trivial, ~30 min total).
+3. Wire `pack.html`'s reader to consume `visuals/docimages.json` and display images inline per document, per the website skill's "put the visuals in the documents" requirement — the mapping exists, the reader doesn't use it yet.
+4. Build the 4 next-queue visual candidates (V07–V10) named in `visuals/visual_manifest.md`.
+5. Second citation-audit pass on sources added or leaned on more heavily by phases 3–8 (`audit/CITATIONS.md` covers only sources cited through phase 2).
 
 ## Recommended next 3
 
-1. **Run the deferred critic loop before treating phases 3–7 as equal in reliability to Strategy** — this is the single most consequential open item in this coverage report.
-2. **Reformat the ten architecture diagram orientation blocks** — cheap, mechanical, and currently the only property-0 fix row in the pack.
-3. **Do not backfill visuals under time pressure** — `references/quality-bar.md`'s property 0 and the visuals contract both require real work per row; a rushed visuals pass would trade one honest gap for a dishonest-looking one.
+1. **Run the deferred critic loop before treating phases 3–8 as equal in reliability to Strategy** — this is the single most consequential open item in this coverage report, unchanged by the visuals pass.
+2. **Wire the reader to the docimages map** — the visuals exist and are cited from documents in `visuals/docimages.json`, but a reader browsing `pack.html` today won't see them inline yet.
+3. **Reformat the ten architecture diagram orientation blocks** — cheap, mechanical, and still the only property-0 fix row in the pack.
