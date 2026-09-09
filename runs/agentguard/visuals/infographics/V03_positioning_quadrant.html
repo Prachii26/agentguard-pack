@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>V03 — Positioning: the open quadrant</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../site.css">
+<style>
+  body{padding:40px 24px}
+  .wrap{max-width:820px;margin:0 auto}
+  .hdr{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:32px}
+  .hdr h1{font-size:26px;margin-top:8px}
+  .quad-wrap{position:relative;padding:36px 20px 20px 60px}
+  .yaxis{position:absolute;left:0;top:20px;bottom:60px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:space-between}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;height:440px}
+  .q{background:var(--canvas);padding:14px;position:relative}
+  .q.open{background:var(--accent-soft)}
+  .dot{display:inline-block;background:var(--canvas);border:1px solid var(--line);border-radius:7px;padding:5px 9px;font-size:12px;margin:3px 4px 0 0;font-weight:500}
+  .dot.us{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+  .qlabel{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:8px}
+  .xaxis{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--muted);padding:0 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <span class="eyebrow">strategy / positioning</span>
+    <h1>The top-right quadrant is open — for now</h1>
+    <p class="sub">Two axes, discovered from the competitor teardown, not assumed: what's reported, and how many defenses are compared at once.</p>
+  </div>
+
+  <div class="quad-wrap">
+    <div class="yaxis">Cross-defense, matched budget ←→ Single defense, one framework</div>
+    <div class="grid2">
+      <div class="q"><div class="qlabel">ASR only · single defense</div>
+        <span class="dot">Garak</span><span class="dot">PyRIT (raw)</span><span class="dot">InjecAgent / ASB</span>
+      </div>
+      <div class="q open"><div class="qlabel">ASR + utility · cross-defense, matched budget</div>
+        <span class="dot us">AgentGuard</span>
+      </div>
+      <div class="q"><div class="qlabel">ASR only · single defense (cont.)</div>
+        <span class="dot">AutoDojo</span><span class="dot">NIST / UK AISI exercise</span><span class="dot">Adversa AI</span><span class="dot">Microsoft AI Red Teaming Agent</span><span class="dot">Straiker · Mindgard · HiddenLayer</span>
+      </div>
+      <div class="q"><div class="qlabel">ASR + utility · single framework</div>
+        <span class="dot">AgentDojo</span>
+      </div>
+    </div>
+    <div class="xaxis"><span>← ASR only</span><span>ASR + utility, reported together →</span></div>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <b>Why it stays open only as a window, not a moat:</b> Adversa AI is one business-model decision away (publishing an aggregate benchmark); Microsoft is one Foundry feature update away — it already owns the attacker half of the mechanism, bundled free. Neither has done it yet. Both could.
+  </div>
+
+  <p style="margin-top:24px;font-size:13px;color:var(--faint)" class="mono">Source: strategy/positioning.md · research/competitors.md</p>
+</div>
+</body>
+</html>

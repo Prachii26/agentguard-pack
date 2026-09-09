@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>V02 — The adaptive-vs-static gap</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../site.css">
+<style>
+  body{padding:40px 24px}
+  .wrap{max-width:760px;margin:0 auto}
+  .hdr{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:36px}
+  .hdr h1{font-size:26px;margin-top:8px}
+  .bars{display:flex;align-items:flex-end;gap:56px;height:280px;padding:0 20px 0}
+  .barcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;height:100%}
+  .bar{width:100%;max-width:180px;border-radius:8px 8px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:14px}
+  .bar .pct{font-family:var(--mono);font-size:30px;font-weight:700;color:#fff}
+  .bar.low{background:#C7C4E8;height:11%}
+  .bar.high{background:var(--accent);height:81%}
+  .lbl{margin-top:14px;text-align:center;font-size:14px;color:var(--muted);max-width:200px}
+  .lbl b{color:var(--ink);display:block;font-size:15px;margin-bottom:2px}
+  .axis{border-top:1px solid var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <span class="eyebrow">research / sources — S27</span>
+    <h1>Hijack success, same environment, generic vs. adapted attacks</h1>
+    <p class="sub">A human red-teaming exercise run jointly by NIST's Center for AI Standards and Innovation and the UK AI Security Institute — government-run, not vendor-sourced.</p>
+  </div>
+
+  <div class="bars axis">
+    <div class="barcol">
+      <div class="bar low"><span class="pct" style="color:var(--ink)">11%</span></div>
+      <div class="lbl"><b>Generic attacks</b>Fixed, off-the-shelf attempts — the static-benchmark condition</div>
+    </div>
+    <div class="barcol">
+      <div class="bar high"><span class="pct">81%</span></div>
+      <div class="lbl"><b>Adapted attacks</b>Target-optimized by human red-teamers — a 7x jump on the identical system</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:36px">
+    <b>Why this matters for AgentGuard's whole premise:</b> the same defense that looks solid against a generic attack can fail 7x more often against one adapted to it specifically. This is the empirical core of the riskiest assumption in <span class="mono">BRIEF.md</span> — and the reason a static benchmark score alone cannot be trusted as a resilience claim.
+  </div>
+
+  <p style="margin-top:24px;font-size:13px;color:var(--faint)" class="mono">Source: research/sources.md S27 (NIST CAISI + UK AI Security Institute, published Jan 2025)</p>
+</div>
+</body>
+</html>

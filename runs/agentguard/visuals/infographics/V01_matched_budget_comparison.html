@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>V01 — Matched-budget cross-defense comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../site.css">
+<style>
+  body{padding:40px 24px}
+  .wrap{max-width:900px;margin:0 auto}
+  .hdr{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:28px}
+  .hdr h1{font-size:26px;margin-top:8px}
+  .warn-strip{background:#FDF3E7;border:1px solid #F0DEC3;border-radius:8px;padding:10px 16px;font-size:13px;color:var(--warn);margin-bottom:24px;font-family:var(--mono)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <span class="eyebrow">tech / architecture — the comparison protocol</span>
+    <h1>One matched attempt budget. Four defenses. One report.</h1>
+    <p class="sub">Every defense is evaluated at the identical round budget in the same campaign — the design choice that makes the comparison impossible to game by running one defense longer than another.</p>
+  </div>
+  <div class="warn-strip">⚠ ILLUSTRATIVE — drawn from <span class="mono">product/journeys/beachhead.md</span>'s design-stage narrative (Marcus Webb). No campaign has actually run. Nothing on this page is a measured result.</div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Defense</th><th>Attempt budget</th><th>Attempts-to-first-success</th><th>Final-window ASR</th><th>Utility under attack</th></tr></thead>
+      <tbody>
+        <tr><td>Baseline / none</td><td class="n">150 rounds</td><td class="n">round 3</td><td class="n" style="color:var(--warn)">95%</td><td class="n">100%</td></tr>
+        <tr><td>Defensive prompting <span class="src">deployed</span></td><td class="n">150 rounds</td><td class="n">round 19</td><td class="n" style="color:var(--warn)">62%</td><td class="n">91%</td></tr>
+        <tr><td>Classifier-based detection</td><td class="n">150 rounds</td><td class="n">round 40</td><td class="n">18%</td><td class="n">84%</td></tr>
+        <tr><td>Rule-based tool-call validation</td><td class="n">150 rounds</td><td class="n">no success</td><td class="n" style="color:var(--signal)">0%</td><td class="n" style="color:var(--warn)">71%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:28px">
+    <b>The trade-off the report makes visible:</b> the one defense that fully resists the adaptive attacker (rule-based tool-call validation) also blocks the most legitimate refund requests. Neither number alone tells a security engineer what to do — the two, reported together, at equal budget, do.
+  </div>
+
+  <p style="margin-top:24px;font-size:13px;color:var(--faint)" class="mono">Source: product/journeys/beachhead.md · strategy/positioning.md · BRIEF.md Wedge &amp; Mechanism</p>
+</div>
+</body>
+</html>

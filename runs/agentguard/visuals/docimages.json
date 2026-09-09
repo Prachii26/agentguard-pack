@@ -1,0 +1,26 @@
+{
+  "BRIEF.md": [
+    {"src": "visuals/infographics/V01_matched_budget_comparison.html", "alt": "Four defenses compared at one matched attempt budget", "takeaway": "One budget, four defenses, one report — the comparison can't be gamed by running one defense longer than another."}
+  ],
+  "product/journeys/beachhead.md": [
+    {"src": "visuals/infographics/V01_matched_budget_comparison.html", "alt": "Marcus's illustrative four-defense comparison table", "takeaway": "Design-stage illustration: final-window ASR and utility, per defense, at equal 150-round budget."}
+  ],
+  "strategy/positioning.md": [
+    {"src": "visuals/infographics/V03_positioning_quadrant.html", "alt": "Two-axis positioning quadrant, AgentGuard in the open top-right", "takeaway": "No competitor found in research reports ASR and utility together, across defenses, at matched budget."}
+  ],
+  "research/competitors.md": [
+    {"src": "visuals/infographics/V03_positioning_quadrant.html", "alt": "Two-axis positioning quadrant", "takeaway": "AutoDojo, Adversa AI, and Microsoft each sit one axis-step from the open quadrant."}
+  ],
+  "research/sources.md": [
+    {"src": "visuals/infographics/V02_adaptive_gap.html", "alt": "11 percent to 81 percent hijack success, generic vs adapted attacks", "takeaway": "A 7x jump on the same environment, government-run (NIST / UK AI Security Institute), not vendor-sourced."}
+  ],
+  "research/landscape.md": [
+    {"src": "visuals/infographics/V02_adaptive_gap.html", "alt": "11 percent to 81 percent hijack success", "takeaway": "The empirical core of why adaptive evaluation matters at all."}
+  ],
+  "financials/pricing.md": [
+    {"src": "visuals/infographics/V04_pricing_tiers.html", "alt": "Three pricing tiers: free, single-defense campaign, four-defense report", "takeaway": "Usage-based per campaign, no seats — founder-signed-off, illustrative, not final."}
+  ],
+  "financials/unit_economics.md": [
+    {"src": "visuals/infographics/V04_pricing_tiers.html", "alt": "Pricing tiers with margin note", "takeaway": "Gross margin ~92-99.5% on inference cost alone at either tier."}
+  ]
+}
